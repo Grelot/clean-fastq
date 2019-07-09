@@ -1,0 +1,63 @@
+BootStrap: debootstrap
+OSVersion: xenial
+MirrorURL: http://us.archive.ubuntu.com/ubuntu/
+IncludeCmd: yes
+Include: bash vim less man-db apt-utils tzdata
+
+
+%environment    
+	export LC_ALL=C.UTF-8
+	export PATH="${PATH}":/root/bbmap/
+
+%runscript
+    echo "Opening container...ubuntu xenial: "
+
+
+%labels
+    MAINTAINER Pierre-Edouard_GUERIN
+    INSTITUTE CNRS
+    TEAM Biogeographie_Ecologie_Vertebres
+    BUILD 1.0
+    SINGULARITY_VERSION 2.4.2-dist
+
+
+
+%post
+    mv /etc/apt/sources.list /etc/apt/sources.list.bak
+
+    echo "deb http://us.archive.ubuntu.com/ubuntu/ xenial main restricted universe multiverse
+    deb-src http://us.archive.ubuntu.com/ubuntu/ xenial main restricted universe multiverse
+    deb http://us.archive.ubuntu.com/ubuntu/ xenial-security main restricted universe multiverse
+    deb http://us.archive.ubuntu.com/ubuntu/ xenial-updates main restricted universe multiverse
+    deb http://us.archive.ubuntu.com/ubuntu/ xenial-proposed main restricted universe multiverse
+    deb http://us.archive.ubuntu.com/ubuntu/ xenial-backports main restricted universe multiverse
+    deb-src http://us.archive.ubuntu.com/ubuntu/ xenial-security main restricted universe multiverse
+    deb-src http://us.archive.ubuntu.com/ubuntu/ xenial-updates main restricted universe multiverse
+    deb-src http://us.archive.ubuntu.com/ubuntu/ xenial-proposed main restricted universe multiverse
+    deb-src http://us.archive.ubuntu.com/ubuntu/ xenial-backports main restricted universe multiverse" >> /etc/apt/sources.list
+
+
+    ## git, make, wget
+    apt-get -y --force-yes update
+    yes | apt-get install build-essential
+    yes | apt-get install git
+    yes | apt install wget
+    yes | apt-get install autoconf autogen libtool
+
+    ## zlib, cmake
+    yes | apt install zlib1g-dev libbz2-dev pkg-config cmake
+
+    ## FASTP
+    git clone https://github.com/OpenGene/fastp.git
+    cd fastp
+    make && make install
+	cd ..
+
+    ## JAVA
+	yes | apt-get install openjdk-8-jdk
+
+	## remove phiX
+
+	wget 'https://sourceforge.net/projects/bbmap/files/BBMap_38.57.tar.gz'
+	tar xvzf BBMap_38.57.tar.gz
+
