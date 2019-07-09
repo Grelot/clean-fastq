@@ -60,4 +60,5 @@ Include: bash vim less man-db apt-utils tzdata
 
 	wget 'https://sourceforge.net/projects/bbmap/files/BBMap_38.57.tar.gz'
 	tar xvzf BBMap_38.57.tar.gz
+	chmod 777 -R bbmap
 
