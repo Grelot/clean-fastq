@@ -1,22 +1,22 @@
-configfile: "01-infos/config.yaml"
+configfile: "/workf/01-infos/config.yaml"
 
 rule all:
     input:
-        expand("02-raw/{fastqf}.fastq.gz", fastqf=config["fastqf"]),
-        expand("03-phix_filtered/{fastqf}.phix.fasta.gz", fastqf=config["fastqf"]),
-        expand("10-logs/rm_phix/{fastqf}.log", fastqf=config["fastqf"])
+        expand("/02-raw/{fastqf}.fastq.gz", fastqf=config["fastqf"]),
+        expand("/workf/03-phix_filtered/{fastqf}.phix.fasta.gz", fastqf=config["fastqf"]),
+        expand("/workf/10-logs/rm_phix/{fastqf}.log", fastqf=config["fastqf"])
 
 
 
 ## remove phiX and contaminants
 rule rm_phix:
     input:
-        "02-raw/{fastqf}.fastq.gz"
+        "/02-raw/{fastqf}.fastq.gz"
     output:
-        "03-phix_filtered/{fastqf}.phix.fasta.gz"
+        "/workf/03-phix_filtered/{fastqf}.phix.fasta.gz"
     singularity:
         config["container"]
     log:
-        "10-logs/rm_phix/{fastqf}.log"
+        "/workf/10-logs/rm_phix/{fastqf}.log"
     script:
         "bbduk.sh in={input} out={output} k=31 ref=artifacts,phix ordered cardinality"
