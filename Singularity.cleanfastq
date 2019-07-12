@@ -7,7 +7,7 @@ Include: bash vim less man-db apt-utils tzdata
 
 %environment    
 	export LC_ALL=C.UTF-8
-	export PATH="${PATH}":/root/bbmap/
+	export PATH="${PATH}":/usr/local/bin/bbmap/
 
 %runscript
     echo "Opening container...ubuntu xenial: "
@@ -61,4 +61,6 @@ Include: bash vim less man-db apt-utils tzdata
 	wget 'https://sourceforge.net/projects/bbmap/files/BBMap_38.57.tar.gz'
 	tar xvzf BBMap_38.57.tar.gz
 	chmod 777 -R bbmap
+    cp -R bbmap/ /usr/local/bin/
+
 
