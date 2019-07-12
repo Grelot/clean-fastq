@@ -5,7 +5,7 @@
 
 
 
-A workflow designed to clean fastq files for the SEACONNECT project
+A workflow designed to clean fastq files for the [SEACONNECT project](https://reefish.umontpellier.fr/index.php?categorie6/projet-5)
 
 
 
