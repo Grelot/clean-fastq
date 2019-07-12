@@ -1,4 +1,10 @@
+
 # clean-fastq
+
+[![Snakemake](https://img.shields.io/badge/snakemake-5.5.2-brightgreen.svg)](https://snakemake.bitbucket.io)
+
+
+
 A workflow designed to clean fastq files for the SEACONNECT project
 
 
