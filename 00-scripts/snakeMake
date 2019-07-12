@@ -2,7 +2,7 @@ configfile: "01-infos/config.yaml"
 
 rule all:
     input:
-        expand("/entrepot/donnees/seaconnect/gbs_diplodus/tiny/{fastqf}.fastq.gz", fastqf=config["fastqf"]),
+        expand("02-raw/{fastqf}.fastq.gz", fastqf=config["fastqf"]),
         expand("03-phix_filtered/{fastqf}.phix.fasta.gz", fastqf=config["fastqf"]),
         expand("10-logs/rm_phix/{fastqf}.log", fastqf=config["fastqf"])
 
@@ -11,7 +11,7 @@ rule all:
 ## remove phiX and contaminants
 rule rm_phix:
     input:
-        "/entrepot/donnees/seaconnect/gbs_diplodus/tiny/{fastqf}.fastq.gz"
+        "02-raw/{fastqf}.fastq.gz"
     output:
         "03-phix_filtered/{fastqf}.phix.fasta.gz"
     singularity:
