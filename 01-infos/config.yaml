@@ -1,0 +1,7 @@
+fastqf:
+  - se_1
+  - se_2
+  - se_3
+  - se_4
+container:
+  cleanfastq.simg
