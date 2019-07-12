@@ -1,0 +1,34 @@
+configfile: "01-info_files/config.yaml"
+
+RUNPOOLS, POOLS = glob_wildcards('02-raw/{runpool}/{pool}_R1_001.fastq.gz')
+
+rule all:
+    input:
+        directory(expand('03-samples/{runpool}', runpool=RUNPOOLS)),        
+        directory(expand('03-samples/{runpool}_clone_filtered', runpool=RUNPOOLS)),
+        expand('10-logs/process_radtags/{runpool}.log',runpool=RUNPOOLS),
+        expand('10-logs/clone_filter/{runpool}.log',runpool=RUNPOOLS)
+
+### demultiplexing
+rule process_radtags:
+    input:
+        '02-raw/{runpool}/'
+    output:
+        directory('03-samples/{runpool}')
+    params:
+        enzyme=config["process_radtags"]["enzyme"],
+        trim_length=config["process_radtags"]["trim_length"],
+        score_limit=config["process_radtags"]["score_limit"],
+        windows_size=config["process_radtags"]["sliding_windows_size"],
+        adapter_mm=config["process_radtags"]["adapter_mm"],
+        encoded=config["process_radtags"]["encoded"],
+        adapter_1=config["process_radtags"]["adapter_1"],
+        adapter_2=config["process_radtags"]["adapter_2"],
+        barcode_dist_1=config["process_radtags"]["barcode_dist_1"],
+        barcode_dist_2=config["process_radtags"]["barcode_dist_2"]
+    log:
+        '10-logs/process_radtags/{runpool}.log'
+    shell:
+        '''mkdir -p {output};
+        process_radtags -i gzfastq -P -p {input} -o {output} -b 01-info_files/barcodes.txt -c -r -t {params.trim_length} --adapter_mm {params.adapter_mm} --adapter_1 {params.adapter_1} --adapter_2 {params.adapter_2} --barcode_dist_1 {params.barcode_dist_1} --barcode_dist_2 {params.barcode_dist_2} -w {params.windows_size} -s {params.score_limit} -E {params.encoded} -e {params.enzyme} 2> {log}'''
+
