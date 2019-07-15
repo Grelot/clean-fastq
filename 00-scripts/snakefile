@@ -18,8 +18,8 @@ rule fastqgz_gunzip:
 		"02-fastq/{fastqf}.fastq"
 	log:
 		"10-logs/fastqgz_gunzip/{fastqf}.log"
-	script:
-		"zcat {input} > {output} 2> {log}"
+	shell:
+		'''zcat {input} > {output} 2> {log}'''
 
 ## Keep reads that were filtered.
 rule fastq_illumina_filter:
