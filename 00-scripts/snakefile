@@ -1,6 +1,5 @@
 rule all:
 	input:
-		expand("{folder}/{fastqf}.fastq.gz", fastqf=config["fastqFiles"],folder=config["fastqFolderPath"]),
 		expand("02-fastq/{fastqf}.fastq", fastqf=config["fastqFiles"]),
 		expand("03-illumina_filter/{fastqf}.i.fastq", fastqf=config["fastqFiles"]),
 		expand("04-phix_filter/{fastqf}.i.p.fastq", fastqf=config["fastqFiles"]),
@@ -15,7 +14,7 @@ rule all:
 ## decompress file
 rule fastqgz_gunzip:
 	input:
-		"{{folder}}/{fastqf}.fastq.gz"
+		expand("{folder}/{fastqf}.fastq.gz", fastqf=config["fastqFiles"],folder=config["fastqFolderPath"])
 	output:
 		"02-fastq/{fastqf}.fastq"
 	log:
