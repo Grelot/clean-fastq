@@ -1,5 +1,3 @@
-configfile: "01-infos/config.yaml"
-
 rule all:
 	input:
 		expand("{folder}/{fastqf}.fastq.gz", fastqf=config["fastqFiles"],folder=config["fastqFolderPath"]),
