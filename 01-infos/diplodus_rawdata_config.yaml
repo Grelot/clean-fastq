@@ -1,0 +1,19 @@
+threads_by_job: 2
+fastqFolderPath: /entrepot/donnees/seaconnect/gbs_diplodus/raw
+fastqFiles:
+  - HMGNFBGX2_1
+  - HMNM7BGX2_1
+  - HTF5NBGX2_1
+  - HV7NTBGX2_1
+container:
+  cleanfastq.simg
+fastp:
+  n_base_limit: 0
+  qualified_quality_phred: 18
+  unqualified_percent_limit: 40
+  length_required: 76
+  cut_tail_window_size: 4
+  cut_tail_mean_quality: 18
+  poly_g_min_len: 10
+
+
