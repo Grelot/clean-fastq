@@ -3,9 +3,8 @@ configfile: "01-infos/config.yaml"
 rule all:
     input:
         expand("/entrepot/donnees/seaconnect/gbs_diplodus/tiny/{fastqf}.fastq.gz", fastqf=config["fastqf"]),
-        expand("03-phix_filtered/{fastqf}.phix.fasta.gz", fastqf=config["fastqf"]),
+        expand("03-phix_filtered/{fastqf}.phix.fastq", fastqf=config["fastqf"]),
         expand("10-logs/rm_phix/{fastqf}.log", fastqf=config["fastqf"])
-
 
 
 ## remove phiX and contaminants
@@ -13,10 +12,10 @@ rule rm_phix:
     input:
         "/entrepot/donnees/seaconnect/gbs_diplodus/tiny/{fastqf}.fastq.gz"
     output:
-        "03-phix_filtered/{fastqf}.phix.fasta.gz"
+        "03-phix_filtered/{fastqf}.phix.fastq"
     singularity:
         config["container"]
     log:
         "10-logs/rm_phix/{fastqf}.log"
     script:
-        "bbduk.sh in={input} out={output} k=31 ref=artifacts,phix ordered cardinality"
+        "zcat {input} | bbduk.sh out={output} k=31 ref=artifacts,phix ordered cardinality 2> {log}"
