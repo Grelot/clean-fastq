@@ -5,7 +5,7 @@
 
 
 
-A workflow designed to clean fastq files for the [SEACONNECT project](https://reefish.umontpellier.fr/index.php?article9/total-seaconnect)
+A workflow designed to clean `fastq files` for the [SEACONNECT project](https://reefish.umontpellier.fr/index.php?article9/total-seaconnect)
 
 
 # Installation
@@ -21,7 +21,7 @@ A workflow designed to clean fastq files for the [SEACONNECT project](https://re
 See [https://www.sylabs.io/docs/](https://www.sylabs.io/docs/) for instructions to install Singularity.
 
 ### Programs
-
+Following programs are installed into our container:
 - [fastq_illumina_filter](http://cancan.cshl.edu/labmembers/gordon/fastq_illumina_filter/) keeps reads that were NOT filtered by illumina sequencer.
 - [fastp](https://github.com/OpenGene/fastp) provides fast all-in-one preprocessing for `fastq` files.
 - [bbduk](https://jgi.doe.gov/data-and-tools/bbtools/) filters or trims reads for adapters and contaminants using k-mers.
@@ -51,6 +51,7 @@ Opening container...ubuntu xenial: fastq_illumina_filter, bbduck, fastp
 
 ## Filter illumina fastq
 
+Illumina sequencers perform an internal quality filtering procedure called chastity filter, and reads that pass this filter are called PF for pass-filter. According to Illumina, chastity is defined as the ratio of the brightest base intensity divided by the sum of the brightest and second brightest base intensities. Clusters of reads pass the filter if no more than 1 base call has a chastity value below 0.6 in the first 25 cycles. This filtration process removes the least reliable clusters from the image analysis results. We used fastq_illumina_filter to remove reads which failed to pass the chastity filter. 
 
 ## Remove adapters and contaminants
 
