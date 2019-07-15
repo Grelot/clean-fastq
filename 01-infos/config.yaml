@@ -1,6 +1,6 @@
-threads_by_job:
-  2
-fastqf:
+threads_by_job: 2
+fastqFolderPath: /entrepot/donnees/seaconnect/gbs_diplodus/tiny
+fastqFiles:
   - se_1
   - se_2
   - se_3

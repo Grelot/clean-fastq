@@ -2,17 +2,17 @@ configfile: "01-infos/config.yaml"
 
 rule all:
 	input:
-		expand("/entrepot/donnees/seaconnect/gbs_diplodus/tiny/{fastqf}.fastq.gz", fastqf=config["fastqf"]),
-		expand("02-fastq/{fastqf}.fastq", fastqf=config["fastqf"]),
-		expand("03-illumina_filter/{fastqf}.i.fastq", fastqf=config["fastqf"]),
-		expand("04-phix_filter/{fastqf}.i.p.fastq", fastqf=config["fastqf"]),
-		expand("05-trimmed/{fastqf}.i.p.q.fastq.gz", fastqf=config["fastqf"]),
-		expand("10-logs/fastqgz_gunzip/{fastqf}.log", fastqf=config["fastqf"]),
-		expand("10-logs/fastq_illumina_filter/{fastqf}.log", fastqf=config["fastqf"]),
-		expand("10-logs/phix_filter/{fastqf}.log", fastqf=config["fastqf"]),
-		expand("10-logs/quality_filter/{fastqf}.log", fastqf=config["fastqf"]),
-		expand("10-logs/quality_filter/{fastqf}.json", fastqf=config["fastqf"]),
-		expand("10-logs/quality_filter/{fastqf}.html", fastqf=config["fastqf"]),
+		expand("{folder}/{fastqf}.fastq.gz", fastqf=config["fastqFiles"],folder=config["fastqFolderPath"]),
+		expand("02-fastq/{fastqf}.fastq", fastqf=config["fastqFiles"]),
+		expand("03-illumina_filter/{fastqf}.i.fastq", fastqf=config["fastqFiles"]),
+		expand("04-phix_filter/{fastqf}.i.p.fastq", fastqf=config["fastqFiles"]),
+		expand("05-trimmed/{fastqf}.i.p.q.fastq.gz", fastqf=config["fastqFiles"]),
+		expand("10-logs/fastqgz_gunzip/{fastqf}.log", fastqf=config["fastqFiles"]),
+		expand("10-logs/fastq_illumina_filter/{fastqf}.log", fastqf=config["fastqFiles"]),
+		expand("10-logs/phix_filter/{fastqf}.log", fastqf=config["fastqFiles"]),
+		expand("10-logs/quality_filter/{fastqf}.log", fastqf=config["fastqFiles"]),
+		expand("10-logs/quality_filter/{fastqf}.json", fastqf=config["fastqFiles"]),
+		expand("10-logs/quality_filter/{fastqf}.html", fastqf=config["fastqFiles"]),
 
 ## decompress file
 rule fastqgz_gunzip:
