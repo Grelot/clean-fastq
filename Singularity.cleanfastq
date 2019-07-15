@@ -58,7 +58,7 @@ Include: bash vim less man-db apt-utils tzdata
 
     ## illumina casava filter
 
-    wget http://cancan.cshl.edu/labmembers/gordon/fastq_illumina_filter/fastq_illumina_filter-0.1.tar.gz
+    wget http://cancan.cshl.edu/labmembers/gordon/fastq_illumina_filter/release/0.1/fastq_illumina_filter-0.1.tar.gz
     tar -xzf fastq_illumina_filter-0.1.tar.gz
     cd fastq_illumina_filter-0.1
     make
