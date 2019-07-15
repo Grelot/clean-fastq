@@ -3,19 +3,46 @@ configfile: "01-infos/config.yaml"
 rule all:
     input:
         expand("/entrepot/donnees/seaconnect/gbs_diplodus/tiny/{fastqf}.fastq.gz", fastqf=config["fastqf"]),
-        expand("03-phix_filtered/{fastqf}.phix.fastq", fastqf=config["fastqf"]),
-        expand("10-logs/rm_phix/{fastqf}.log", fastqf=config["fastqf"])
+        expand("02-fastq/{fastqf}.fastq", fastqf=config["fastqf"]),
+        expand("03-illumina_filter/{fastqf}.i.fastq", fastqf=config["fastqf"]),
+        expand("04-phix_filter/{fastqf}.i.p.fastq", fastqf=config["fastqf"]),
+        expand("10-logs/fastqgz_gunzip/{fastqf}.log", fastqf=config["fastqf"]),
+        expand("10-logs/fastq_illumina_filter/{fastqf}.log", fastqf=config["fastqf"]),
+        expand("10-logs/phix_filter/{fastqf}.log", fastqf=config["fastqf"])
 
-
-## remove phiX and contaminants
-rule rm_phix:
+## decompress file
+rule fastqgz_gunzip:
     input:
         "/entrepot/donnees/seaconnect/gbs_diplodus/tiny/{fastqf}.fastq.gz"
     output:
-        "03-phix_filtered/{fastqf}.phix.fastq"
+        "02-fastq/{fastqf}.fastq"
+    log:
+        "10-logs/fastqgz_gunzip/{fastqf}.log"
+    script:
+        "zcat {input} > {output} 2> {log}"
+
+## Keep reads that were filtered.
+rule fastq_illumina_filter:
+    input:
+        "02-fastq/{fastqf}.fastq"
+    output:
+        "03-illumina_filter/{fastqf}.i.fastq"
     singularity:
         config["container"]
     log:
-        "10-logs/rm_phix/{fastqf}.log"
+        "10-logs/fastq_illumina_filter/{fastqf}.log"
     script:
-        "zcat {input} | bbduk.sh out={output} k=31 ref=artifacts,phix ordered cardinality 2> {log}"
+        "fastq_illumina_filter --keep N -o {output} {input} 2> {log}"
+
+## remove phiX and contaminants
+rule phix_filter:
+    input:
+        "03-illumina_filter/{fastqf}.i.fastq"
+    output:
+        "04-phix_filter/{fastqf}.i.p.fastq"
+    singularity:
+        config["container"]
+    log:
+        "10-logs/phix_filter/{fastqf}.log"
+    script:
+        "bbduk.sh in={input} out={output} k=31 ref=artifacts,phix ordered cardinality 2> {log}"
