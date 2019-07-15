@@ -56,11 +56,24 @@ Include: bash vim less man-db apt-utils tzdata
     ## JAVA
 	yes | apt-get install openjdk-8-jdk
 
+    ## illumina casava filter
+
+    wget http://cancan.cshl.edu/labmembers/gordon/fastq_illumina_filter/fastq_illumina_filter-0.1.tar.gz
+    tar -xzf fastq_illumina_filter-0.1.tar.gz
+    cd fastq_illumina_filter-0.1
+    make
+    chmod +x fastq_illumina_filter
+    cp fastq_illumina_filter /usr/local/bin
+    cd ..
+
+
 	## remove phiX
 
 	wget 'https://sourceforge.net/projects/bbmap/files/BBMap_38.57.tar.gz'
 	tar xvzf BBMap_38.57.tar.gz
 	chmod 777 -R bbmap
     cp -R bbmap/ /usr/local/bin/
+
+
 
 
