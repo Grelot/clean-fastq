@@ -31,8 +31,8 @@ rule fastq_illumina_filter:
 		config["container"]
 	log:
 		"10-logs/fastq_illumina_filter/{fastqf}.log"
-	script:
-		"fastq_illumina_filter --keep N -o {output} {input} 2> {log}"
+	shell:
+		'''fastq_illumina_filter --keep N -o {output} {input} 2> {log}'''
 
 ## remove phiX and contaminants
 rule phix_filter:
@@ -44,5 +44,5 @@ rule phix_filter:
 		config["container"]
 	log:
 		"10-logs/phix_filter/{fastqf}.log"
-	script:
-		"bbduk.sh in={input} out={output} k=31 ref=artifacts,phix ordered cardinality 2> {log}"
+	shell:
+		'''bbduk.sh in={input} out={output} k=31 ref=artifacts,phix ordered cardinality 2> {log}'''
