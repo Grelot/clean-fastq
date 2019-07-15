@@ -15,8 +15,6 @@ A workflow designed to clean fastq files for the [SEACONNECT project](https://re
 * [singularity](https://github.com/sylabs/singularity)
 * [snakemake](https://snakemake.bitbucket.io)
 
-## Container
-
 ## Singularity containers
 
 ### Install Singularity
@@ -49,9 +47,22 @@ Opening container...ubuntu xenial: fastq_illumina_filter, bbduck, fastp
 ```
 
 
-# filter illumina fastq
+# The pipeline 
 
-# remove PHIX
+## filter illumina fastq
 
-The viral genome of phiX is used as a control in Illumina sequencing. While the viral libraries do not have MIDs on them, some phiX reads always creep through, possibly because the clusters “borrow” the signals from closely surrounding clusters that do. These phiX reads need to be removed.
 
+## Remove adapters and contaminants
+
+- The viral genome of phiX is used as a control in Illumina sequencing. While the viral libraries do not have MIDs on them, some phiX reads always creep through, possibly because the clusters “borrow” the signals from closely surrounding clusters that do. These phiX reads are removed.
+
+- Adapter sequences should be removed from reads because they interfere with downstream analyses, such as alignment of reads to a reference. The adapters contain the sequencing primer binding sites, the index sequences, and the sites that allow library fragments to attach to the flow cell lawn. Illumina Truseq and Nextera adapters sequences are trimmed from reads sequence. 
+
+
+
+
+# Running the pipeline
+
+```
+snakemake -s 00-scripts/snakefile -j 8 --use-singularity
+```
