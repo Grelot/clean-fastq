@@ -76,7 +76,9 @@ fastp:
 ```
 ### IUPAC ambiguous base calling removal
 We Removed reads with more than 0 `N` bases
-```n_base_limit: 0```
+```
+n_base_limit: 0
+```
 
 ### Quality trimming
 
@@ -105,12 +107,16 @@ cut_tail_mean_quality: 18
 
 ### polyG tail trimming
 We trimmed 3' tail polyG sequences with a length greater than 10 bases from reads sequence.
-``` poly_g_min_len: 10```
+``` 
+poly_g_min_len: 10
+```
 
 
 ### Length filtering
 We removed trimmed reads with a length below 76 bases.
-```length_required: 76```
+```
+length_required: 76
+```
 
 
 # Running the pipeline
