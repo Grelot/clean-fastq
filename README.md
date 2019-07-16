@@ -5,7 +5,7 @@
 
 
 
-A workflow designed to clean `fastq files` for the [SEACONNECT project](https://reefish.umontpellier.fr/index.php?article9/total-seaconnect)
+A workflow designed to clean SINGLE-END `fastq files` for the [SEACONNECT project](https://reefish.umontpellier.fr/index.php?article9/total-seaconnect)
 
 
 # Installation
@@ -30,7 +30,7 @@ Following programs are installed into our container:
 ### Download (or build) the container
 
 ```
-singularity pull --name cleanfastq.simg ..........................
+singularity pull --name cleanfastq.simg ...........!!!singularity hub is down!!!
 ```
 alternatively, if you are administrator on your machine, you can build a local image:
 ```
@@ -45,6 +45,17 @@ it should output:
 ```
 Opening container...ubuntu xenial: fastq_illumina_filter, bbduck, fastp
 ```
+
+# Configuration
+
+Before running the pipeline with snakemake, you have to set a [config file](tiny_config.yaml)
+
+* `threads_by_job` number of cores used to process a single `fastq` file
+* `fastqFolderPath` an absolute path of the folder containing fastq files
+* `fastqFiles` a list of PREFIX _.fastq.gz_ file name inside the folder that you want to process
+* `container` name of the singularity image file
+* `fastp` custom parameters for fastp command (see section [The pipeline](#the_pipeline) - [Quality filtering](##quality_filtering) for details)
+
 
 
 # The pipeline 
@@ -76,7 +87,7 @@ fastp:
   poly_g_min_len: 10
 ```
 ### IUPAC ambiguous base calling removal
-We Removed reads with more than 0 `N` bases
+We removed reads with more than 0 `N` bases
 ```
 n_base_limit: 0
 ```
