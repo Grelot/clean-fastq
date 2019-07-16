@@ -1,5 +1,5 @@
 threads_by_job: 2
-fastqFolderPath: /entrepot/donnees/seaconnect/gbs_diplodus/raw
+fastqFolderPath: "/entrepot/donnees/seaconnect/gbs_diplodus/raw"
 fastqFiles:
   - HMGNFBGX2_1
   - HMNM7BGX2_1
