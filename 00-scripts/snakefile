@@ -1,8 +1,6 @@
-datafolder=config["fastqFolderPath"]
-
 rule all:
 	input:
-		os.path.join(datafolder,["{fastqf}.fastq.gz".format(fastqf=fqf) for fqf in config["fastqFiles"]]),
+		expand("{folder}/{fastqf}.fastq.gz", fastqf=config["fastqFiles"],folder=config["fastqFolderPath"]),
 		expand("02-fastq/{fastqf}.fastq", fastqf=config["fastqFiles"]),
 		expand("03-illumina_filter/{fastqf}.i.fastq", fastqf=config["fastqFiles"]),
 		expand("04-phix_filter/{fastqf}.i.p.fastq", fastqf=config["fastqFiles"]),
@@ -16,8 +14,8 @@ rule all:
 
 ## decompress file
 rule fastqgz_gunzip:
-	input:		
-		os.path.join(datafolder,"{fastqf}.fastq.gz")
+	input:
+		"{folder}/{fastqf}.fastq.gz"
 	output:
 		"02-fastq/{fastqf}.fastq"
 	log:
