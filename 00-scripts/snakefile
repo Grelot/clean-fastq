@@ -14,7 +14,7 @@ rule all:
 ## decompress file
 rule fastqgz_gunzip:
 	input:
-		["{folder}/{fastqf}.fastq.gz".format(fastqf=fqf,folder=config["fastqFolderPath"]) for fqf in config["fastqFiles"]]
+		str(config["fastqFolderPath"])+"/"+expand("{fastqf}.fastq.gz", fastqf=config["fastqFiles"])
 	output:
 		"02-fastq/{fastqf}.fastq"
 	log:
