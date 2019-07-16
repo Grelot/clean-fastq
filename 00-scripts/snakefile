@@ -1,5 +1,6 @@
 rule all:
 	input:
+		expand("{fastqf}.fastq.gz", fastqf=config["fastqFiles"]),
 		expand("02-fastq/{fastqf}.fastq", fastqf=config["fastqFiles"]),
 		expand("03-illumina_filter/{fastqf}.i.fastq", fastqf=config["fastqFiles"]),
 		expand("04-phix_filter/{fastqf}.i.p.fastq", fastqf=config["fastqFiles"]),
@@ -13,14 +14,16 @@ rule all:
 
 ## decompress file
 rule fastqgz_gunzip:
-	input:
-		expand( "/entrepot/donnees/seaconnect/gbs_diplodus/tiny/{fastqf}.fastq.gz", fastqf=config["fastqFiles"])
+	input:		
+		"{fastqf}.fastq.gz"
 	output:
 		"02-fastq/{fastqf}.fastq"
+	params:
+		fqFolder=config["fastqFolderPath"]
 	log:
 		"10-logs/fastqgz_gunzip/{fastqf}.log"
 	shell:
-		'''zcat {input} > {output} 2> {log}'''
+		'''zcat {params.fqFolder}/{input} > {output} 2> {log}'''
 
 ## Keep reads that were filtered.
 rule fastq_illumina_filter:
