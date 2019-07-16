@@ -15,15 +15,13 @@ rule all:
 ## decompress file
 rule fastqgz_gunzip:
 	input:		
-		"{fastqf}.fastq.gz"
+		str(config["fastqFolderPath"])+"/"+"{fastqf}.fastq.gz"
 	output:
 		"02-fastq/{fastqf}.fastq"
-	params:
-		fqFolder=config["fastqFolderPath"]
 	log:
 		"10-logs/fastqgz_gunzip/{fastqf}.log"
 	shell:
-		'''zcat {params.fqFolder}/{input} > {output} 2> {log}'''
+		'''zcat {input} > {output} 2> {log}'''
 
 ## Keep reads that were filtered.
 rule fastq_illumina_filter:
