@@ -15,7 +15,7 @@ rule all:
 ## decompress file
 rule fastqgz_gunzip:
 	input:
-		"{folder}/{fastqf}.fastq.gz"
+		config["fastqFolderPath"]+"/{fastqf}.fastq.gz"
 	output:
 		"02-fastq/{fastqf}.fastq"
 	log:
