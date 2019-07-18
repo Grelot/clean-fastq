@@ -6,7 +6,6 @@ fastqFiles:
   - C6JATANXX_4
   - C6JATANXX_5
   - C6JATANXX_6
-  - C8AMNANXX_8
   - C8BJGANXX_1
 container:
   cleanfastq.simg
