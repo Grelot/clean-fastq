@@ -28,7 +28,7 @@ Following programs are installed into our container:
 ### Download (or build) the container
 
 ```
-singularity pull --name cleanfastq.simg shub://Grelot/clean-fastq
+singularity pull --name cleanfastq.simg shub://Grelot/clean-fastq:cleanfastq
 ```
 alternatively, if you are administrator on your machine, you can build a local image:
 ```
