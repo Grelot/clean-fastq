@@ -1,6 +1,7 @@
 # clean-fastq
 
-[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) [![Snakemake](https://img.shields.io/badge/snakemake-5.5.2-brightgreen.svg)](https://snakemake.bitbucket.io) [![https://www.singularity-hub.org/static/img/hosted-singularity--hub-%23e32929.svg](https://www.singularity-hub.org/static/img/hosted-singularity--hub-%23e32929.svg)](https://singularity-hub.org/collections/3320)
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) [![Snakemake](https://img.shields.io/badge/snakemake-5.5.2-brightgreen.svg)](https://snakemake.bitbucket.io) [![https://www.singularity-hub.org/static/img/hosted-singularity--hub-%23e32929.svg](https://www.singularity-hub.org/static/img/hosted-singularity--hub-%23e32929.svg)](https://singularity-hub.org/collections/3320) [![MIT license](https://black.readthedocs.io/en/stable/_static/license.svg
+)](https://github.com/Grelot/clean-fastq/blob/master/LICENSE)
 
 
 
@@ -134,14 +135,15 @@ length_required: 76
 
 To do a test on tiny data
 ```
-snakemake -s 00-scripts/snakefile -j 8 --use-singularity --configfile 01-infos/tiny_config.yaml
+snakemake -s Snakefile -j 8 --use-singularity --configfile 01-infos/tiny_config.yaml
 ```
 
 Run the pipeline on _diplodus Sargus_ `fastq` raw data
 ```
-snakemake -s 00-scripts/snakefile -j 8 --use-singularity --configfile 01-infos/diplodus_rawdata_config.yaml
+snakemake -s Snakefile -j 8 --use-singularity --configfile 01-infos/diplodus_rawdata_config.yaml
 ```
 Run the pipeline on _mullus Surmuletus_ `fastq` raw data
 ```
-snakemake -s 00-scripts/snakefile -j 8 --use-singularity --configfile 01-infos/mullus_rawdata_config.yaml
+snakemake -s Snakefile -j 8 --use-singularity --configfile 01-infos/mullus_rawdata_config.yaml
 ```
+
